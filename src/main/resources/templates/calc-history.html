@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Security Calc</title>
+</head>
+<body>
+<form th:action="@{/calc/history}" method="get">
+    <button>History</button>
+</form>
+<div th:each="operation : ${operationList}">
+    <span th:text="${operation.num1} + ' ' +
+    ${operation.type} + ' ' +
+    ${operation.num2} + ' = ' +
+    ${operation.result} + '. time: ' +
+    ${#temporals.format(operation.time, 'dd-MM-yyyy HH:mm')}"></span>
+</div>
+<div th:if="${countOfPages > 0}" class="pagination">
+    <a th:if="${page != 0}" th:href="@{/calc/history(page=${page - 1}, count=5)}" th:text="previous"></a>
+    <a th:if="${page != countOfPages}" th:href="@{/calc/history(page=${page + 1}, count=5)}" th:text="next"></a>
+</div>
+</body>
+</html>

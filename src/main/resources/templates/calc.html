@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Security Calc</title>
+</head>
+<body>
+<form th:action="@{/calc}" method="post" th:object="${newOperation}">
+
+    <input type="text" th:field="*{num1}" placeholder="Num1">
+    <p th:if="${#fields.hasErrors()}" th:errors="*{num1}"></p>
+
+    <input type="text" th:field="*{num2}" placeholder="Num2">
+    <p th:if="${#fields.hasErrors()}" th:errors="*{num2}"></p>
+
+    <select th:field="*{type}">
+        <option value="SUM" label="SUM"></option>
+        <option value="SUB" label="SUB"></option>
+        <option value="MUL" label="MUL"></option>
+        <option value="DIV" label="DIV"></option>
+    </select>
+    <button>Submit</button>
+</form>
+
+<span th:if="${calculatedOperation != null}" th:text="'Result = ' + ${calculatedOperation.result}"/>
+
+<span th:if="${calculatedError != null}" th:text="${calculatedError}"/>
+
+<br>
+
+<th:block th:include="calc-history.html"/>
+
+</body>
+</html>
